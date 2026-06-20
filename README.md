@@ -1,22 +1,40 @@
-# Soroban Project
+# VoteTrust
 
-## Project Structure
+VoteTrust combines a Soroban voting contract with a React client for Stellar Testnet wallet operations.
 
-This repository uses the recommended structure for a Soroban project:
+## Frontend
 
-```text
-.
-├── contracts
-│   └── hello_world
-│       ├── src
-│       │   ├── lib.rs
-│       │   └── test.rs
-│       └── Cargo.toml
-├── Cargo.toml
-└── README.md
+The frontend is a Vite + React + TypeScript application. It supports:
+
+- Freighter connection and app-session disconnect
+- Testnet network enforcement
+- Native XLM balance and estimated spendable balance
+- Freighter-signed Testnet XLM payments
+- Friendly wallet, Horizon, validation, and transaction feedback
+
+Install dependencies and start the app:
+
+```sh
+npm install
+npm run dev
 ```
 
-- New Soroban contracts can be put in `contracts`, each in their own directory. There is already a `hello_world` contract in there to get you started.
-- If you initialized this project with any other example contracts via `--with-example`, those contracts will be in the `contracts` directory as well.
-- Contracts should have their own `Cargo.toml` files that rely on the top-level `Cargo.toml` workspace for their dependencies.
-- Frontend libraries can be added to the top-level directory as well. If you initialized this project with a frontend template via `--frontend-template` you will have those files already included.
+Then open the local URL shown by Vite. Install Freighter, set it to **Testnet**, and fund an account through [Stellar Friendbot](https://friendbot.stellar.org/) before connecting.
+
+Useful checks:
+
+```sh
+npm run typecheck
+npm run lint
+npm run build
+```
+
+## Soroban contract
+
+The Rust workspace contains the `vote_trust` contract under `contracts/hello-world`. With the Rust and Cargo toolchain installed, run:
+
+```sh
+cargo test
+```
+
+The application never asks for or stores a Stellar secret key. Freighter signs transactions, and all wallet functionality is pinned to Stellar Testnet.
